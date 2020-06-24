@@ -50,7 +50,6 @@ namespace UdemyApp.api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDTO userDTO)
         {
-            throw new Exception("boiiiiiiiiiiiii");
             var userFromRepo = await _repo.Login(userDTO.Username.ToLower(), userDTO.Password);
             if (userFromRepo == null)
             {
