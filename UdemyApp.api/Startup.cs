@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -29,6 +30,7 @@ namespace UdemyApp.api
             Configuration = configuration;
         }
 
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -36,9 +38,14 @@ namespace UdemyApp.api
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite
             (Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(opt => {
+                opt.SerializerSettings.ReferenceLoopHandling = 
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
             services.AddCors();
             services.AddScoped<IAuthRepository, AuthRepository>();//adding interface for user login and register
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddAutoMapper(typeof(UserRepository).Assembly);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//token authentication service
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters{

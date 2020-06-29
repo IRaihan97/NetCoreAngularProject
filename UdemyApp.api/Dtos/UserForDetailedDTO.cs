@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using UdemyApp.api.Models;
 
-namespace UdemyApp.api.Models
+namespace UdemyApp.api.Dtos
 {
-    public class User
+    public class UserForDetailedDTO
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -12,7 +13,7 @@ namespace UdemyApp.api.Models
 
         public string Gender { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public int Age { get; set; }
 
         public string KnownAs { get; set; }
 
@@ -28,6 +29,9 @@ namespace UdemyApp.api.Models
 
         public string Country { get; set; }
 
-        public ICollection<Photo> Photos { get; set; }
+        public string PhotoUrl { get; set; }
+
+        public ICollection<PhotosForDetailedDTO> Photos{ get; set; }
+        
     }
 }
