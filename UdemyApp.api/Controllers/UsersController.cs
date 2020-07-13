@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -40,5 +41,25 @@ namespace UdemyApp.api.Controllers
             var userToReturn = _mapper.Map<UserForDetailedDTO>(user);
             return Ok(userToReturn);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> updateUser(int id, UserForUpdateDTO userUpdateDTO)
+        {
+            //check if the user accessing this requests matches with the user being updated
+            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)){
+                return Unauthorized();
+            }
+
+            var userFromRepo = await _repo.GetUser(id);
+            
+            _mapper.Map(userUpdateDTO, userFromRepo);
+
+            if(await _repo.SaveAll()){
+                return NoContent();
+            }
+            
+            throw new System.Exception($"Updating User {id} failed on save");
+        }
+
     }
 }
