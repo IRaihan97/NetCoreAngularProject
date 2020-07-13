@@ -13,6 +13,7 @@ namespace UdemyApp.api
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+            //Seeding Json data
             using( var scope = host.Services.CreateScope()){
                 
                 var services = scope.ServiceProvider;

@@ -29,6 +29,8 @@ namespace UdemyApp.api.Dtos
 
         public string Country { get; set; }
 
+        public string Interests { get; set; }
+
         public string PhotoUrl { get; set; }
 
         public ICollection<PhotosForDetailedDTO> Photos{ get; set; }

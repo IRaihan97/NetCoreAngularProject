@@ -9,8 +9,8 @@ using UdemyApp.api.Data;
 namespace UdemyApp.api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200629111655_ExtendedUser")]
-    partial class ExtendedUser
+    [Migration("20200703110602_Adjusted_User")]
+    partial class Adjusted_User
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,6 +65,9 @@ namespace UdemyApp.api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Interests")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Introduction")

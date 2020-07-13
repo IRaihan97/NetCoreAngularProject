@@ -28,6 +28,8 @@ namespace UdemyApp.api.Models
 
         public string Country { get; set; }
 
+        public string Interests { get; set; }
+
         public ICollection<Photo> Photos { get; set; }
     }
 }
